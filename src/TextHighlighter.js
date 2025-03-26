@@ -371,7 +371,14 @@
              * @returns {Selection}
              */
             getSelection: function () {
-                return dom(el).getWindow().getSelection();
+                return dom(el).getRootNode().getSelection();
+            },
+
+            /**
+             * Returns node's root.
+             */
+            getRootNode: function () {
+                return el.getRootNode();
             },
 
             /**
@@ -846,12 +853,12 @@
 
         function deserializationFn(hlDescriptor) {
             var hl = {
-                    wrapper: hlDescriptor[0],
-                    text: hlDescriptor[1],
-                    path: hlDescriptor[2].split(':'),
-                    offset: hlDescriptor[3],
-                    length: hlDescriptor[4]
-                },
+                wrapper: hlDescriptor[0],
+                text: hlDescriptor[1],
+                path: hlDescriptor[2].split(':'),
+                offset: hlDescriptor[3],
+                length: hlDescriptor[4]
+            },
                 elIndex = hl.path.pop(),
                 node = self.el,
                 hlNode,
@@ -862,7 +869,7 @@
                 node = node.childNodes[idx];
             }
 
-            if (node.childNodes[elIndex-1] && node.childNodes[elIndex-1].nodeType === NODE_TYPE.TEXT_NODE) {
+            if (node.childNodes[elIndex - 1] && node.childNodes[elIndex - 1].nodeType === NODE_TYPE.TEXT_NODE) {
                 elIndex -= 1;
             }
 
